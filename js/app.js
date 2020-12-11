@@ -83,4 +83,3 @@ $('select').on('change', function () {
   }
 });
 
-
