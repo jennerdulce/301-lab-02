@@ -1,5 +1,6 @@
 body {
   /* width: 1000px; */
+  width: 100%;
   margin: auto;
 }
 
@@ -8,8 +9,6 @@ main {
 }
 
 h1 {
-  margin: 30px 0;
-  text-align: center;
   font-family: 'Cinzel', serif;
   font-size: 72px;
   font-weight: 700;
@@ -17,7 +16,6 @@ h1 {
 }
 
 h2 {
-  margin-bottom: 15px;
   font-size: 30px;
   text-align: center;
   text-decoration: underline;
@@ -26,45 +24,23 @@ h2 {
 p {
   padding:50px;
   font-size: 24px;
-  text-align: center;
   background-color: grey;
 }
 
 select {
-  display: block;
-  margin: auto;
   font-size: 26px;
-  text-align: center;
 }
 
 footer {
-  margin: 100px 0px;
-  padding-top:100px;
   font-size: 24px;
-  text-align: center;
   clear: both
 }
 
-#container {
-  width: 90%;
-  margin: 100px auto;
-}
-
 img {
-  width: 300px;
-  margin-bottom: 30px;
   cursor: pointer
 }
 
 section {
-  display: inline-block;
-  overflow: auto;
-  width: 300px;
-  height: 500px;
-  margin: 10px;
-  padding: 10px;
-  padding-top: 20px;
-  border: 2px black solid;
   float: left;
 }
 
