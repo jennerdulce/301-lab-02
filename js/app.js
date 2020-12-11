@@ -50,51 +50,14 @@ function render()Image{
 
 // Hide/show when clicking on a category
 $('select').on('change', function() {
-  let category = $(this).val();
-  $('img').hide();
-  $(`.${category}`).show();
-
-  if (category === 'home'){
+  
+  let $category = $(this).val();
+  if (category === 'home') {
     $('img').show();
+    
+  } else {
+  //Hides ALL images  
+   $('img').hide();
+  // Shows images with the class chosen 
+  $(`.${$category}`).show();
   }
-});
-
-// $('img').on('mouseover', function(){
-//   $(this).toggleClass('zoom');
-// });
-
-// $('img').on('mouseover', function(){
-//   $(this).animate({width: '50%', height: '50%'}, 'slow');
-// });
-
-
-
-// ====================================================
-
-// let $container = $('#container');
-// let $imgTemplate = $('.image-template');
-
-// listOfPictures.forEach( (item, index, arr) => {
-//   // Create a New Image
-//   let $newImg = $imgTemplate.clone();
-
-//   // Removes Class
-//   $newImg.removeAttr('class');
-
-//   // Setting Data
-//   $newImg.addClass('class', arr[index].keyword);
-//   $newImg.addClass('class', `horns${arr[index].horns}`);
-//   $newImg.attr('src', arr[index].url);
-//   $newImg.attr('title', arr[index].title);
-//   $newImg.attr('alt', arr[index].description);
-
-
-//   // Add to the HTML/DOM
-//   $container.append($newImg);
-// });
-
-// $('option').on('click', function() {
-//   let category = this.val;
-//   if (!$('img').class)
-// });
-
