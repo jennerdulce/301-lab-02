@@ -33,15 +33,10 @@ select {
 
 footer {
   font-size: 24px;
-  clear: both
 }
 
 img {
   cursor: pointer
-}
-
-section {
-  float: left;
 }
 
 #section-template {

@@ -1,6 +1,14 @@
 h1 {
-  margin: 30px 0;
+  margin: 30px auto;
+  padding: 20px;
   text-align: center;
+  text-decoration: underline;
+  border: 4px black double;
+  /* display: inline-block; */
+}
+
+body {
+  background-color: #BFDBFE;
 }
 
 h2 {
@@ -9,6 +17,7 @@ h2 {
 
 p {
   text-align: center;
+  border-radius: 20px;
 }
 
 select {
@@ -21,9 +30,10 @@ footer {
   margin: 100px 0px;
   padding-top:100px;
   text-align: center;
+  clear: both
 }
 
-#container {
+#container, h1 {
   width: 90%;
   margin: 100px auto;
 }
@@ -31,15 +41,20 @@ footer {
 img {
   width: 300px;
   margin-bottom: 30px;
+  border: 1px black solid;
+  border-radius: 20px;
 }
 
 section {
-  display: inline-block;
+  /* display: inline-block; */
   overflow: auto;
+  float: left;
   width: 300px;
   height: 500px;
   margin: 10px;
   padding: 10px;
   padding-top: 20px;
-  border: 2px black solid;
+  border: 5px black solid;
+  border-radius: 30px;
+  background-color: white;
 }

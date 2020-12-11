@@ -35,24 +35,24 @@ $container.append();
 function renderImages() {
   listOfPictures.forEach(function (value) {
 
-    let $header = $('<h2></h2>');
-    let $paragraph = $('<p></p>');
-
+    // let $header = $('<h2></h2>');
+    // let $paragraph = $('<p></p>');
 
     // Create a New Image
     let $newSection = $sectionTemplate.clone();
-    let $newImg = $imgTemplate.clone();
+    let $newImg = $newSection.find('img');
+    let $header = $newSection.find('h2');
+    let $paragraph = $newSection.find('p');
 
     // Removes Class
     $newImg.removeAttr('class');
     $newSection.removeAttr('id');
-    $newSection.html('');
-
 
     // Setting Data
     $newSection.addClass(`${value.keyword} horns${value.horns}`);
     $newImg.attr('src', value.url);
-    $newImg.attr('title', value.title);
+
+    // $newImg.attr('title', value.title);
     $newImg.attr('alt', value.description);
 
     // Add to the HTML/DOM
@@ -65,6 +65,7 @@ function renderImages() {
 
     $container.append($newSection);
   });
+  $sectionTemplate.hide(); // hides template
 }
 
 // Hide/show when clicking on a category
@@ -82,5 +83,3 @@ $('select').on('change', function () {
     $(`.${$category}`).show();
   }
 });
-
-// Need to make some prototypes?
