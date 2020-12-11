@@ -23,78 +23,64 @@ $.ajax('./data/page-1.json')
   });
 
 //DONE: Use jQuery to make a copy of the HTML template of the photo component. For each object, fill in the duplicated template with its properties, then append the copy to the DOM.
+
 // Targets stores a reference
 let $container = $('#container');
+let $sectionTemplate = $('#section-template');
 let $imgTemplate = $('.image-template');
 
-// testing
-function render()Image{
-  listOfPictures.forEach(function (item) {
+$container.append();
+
+// How images are made and put on the DOM
+function renderImages() {
+  listOfPictures.forEach(function (value) {
+
+    let $header = $('<h2></h2>');
+    let $paragraph = $('<p></p>');
+
+
     // Create a New Image
+    let $newSection = $sectionTemplate.clone();
     let $newImg = $imgTemplate.clone();
 
     // Removes Class
     $newImg.removeAttr('class');
+    $newSection.removeAttr('id');
+    $newSection.html('');
+
 
     // Setting Data
-    $newImg.addClass(`${item.keyword} horns${item.horns}`);
-    $newImg.attr('src', item.url);
-    $newImg.attr('title', item.title);
-    $newImg.attr('alt', item.description);
+    $newSection.addClass(`${value.keyword} horns${value.horns}`);
+    $newImg.attr('src', value.url);
+    $newImg.attr('title', value.title);
+    $newImg.attr('alt', value.description);
 
     // Add to the HTML/DOM
-    $container.append($newImg);
+    $header.text(value.title);
+    $paragraph.text(value.description);
+
+    $newSection.append($header);
+    $newSection.append($newImg);
+    $newSection.append($paragraph);
+
+    $container.append($newSection);
   });
 }
 
-
 // Hide/show when clicking on a category
-$('select').on('change', function() {
-  let category = $(this).val();
-  $('img').hide();
-  $(`.${category}`).show();
+$('select').on('change', function () {
+  let $category = $(this).val();
 
-  if (category === 'home'){
-    $('img').show();
+  if ($category === 'home') {
+    $('section').show();
+
+  } else {
+    // Hides ALL images
+    $('section').hide();
+
+    // Shows images with the class chosen
+    $(`.${$category}`).show();
   }
 });
 
-// $('img').on('mouseover', function(){
-//   $(this).toggleClass('zoom');
-// });
-
-// $('img').on('mouseover', function(){
-//   $(this).animate({width: '50%', height: '50%'}, 'slow');
-// });
-
-
-
-// ====================================================
-
-// let $container = $('#container');
-// let $imgTemplate = $('.image-template');
-
-// listOfPictures.forEach( (item, index, arr) => {
-//   // Create a New Image
-//   let $newImg = $imgTemplate.clone();
-
-//   // Removes Class
-//   $newImg.removeAttr('class');
-
-//   // Setting Data
-//   $newImg.addClass('class', arr[index].keyword);
-//   $newImg.addClass('class', `horns${arr[index].horns}`);
-//   $newImg.attr('src', arr[index].url);
-//   $newImg.attr('title', arr[index].title);
-//   $newImg.attr('alt', arr[index].description);
-
-
-//   // Add to the HTML/DOM
-//   $container.append($newImg);
-// });
-
-// $('option').on('click', function() {
-//   let category = this.val;
-//   if (!$('img').class)
-// });
 
