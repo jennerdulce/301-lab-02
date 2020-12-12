@@ -51,14 +51,14 @@ function renderImages() {
     // Setting Data
     $newSection.addClass(`${value.keyword} horns${value.horns}`);
     $newImg.attr('src', value.url);
-
-    // $newImg.attr('title', value.title);
+    $newImg.attr('title', value.title);
     $newImg.attr('alt', value.description);
 
     // Add to the HTML/DOM
     $header.text(value.title);
     $paragraph.text(value.description);
 
+    // Append to the Container
     $newSection.append($header);
     $newSection.append($newImg);
     $newSection.append($paragraph);
