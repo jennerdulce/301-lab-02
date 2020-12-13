@@ -11,23 +11,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
   <title>The Gallery of Horns</title>
   <script id="image-template" type="x-tmpl-mustache">
-  <section class="{{ class }}">
-    <h2>{{ title }}</h2>
-    <img src="{{ image }}" alt="{{ description }}" >
-    <p>{{ description }}</p>
-  </section>
-
-
+    <section class="{{ class }}">
+      <h2>{{ title }}</h2>
+      <img src="{{ image }}" alt="{{ description }}" title="{{ title }}" >
+      <p>{{ description }}</p>
+    </section>
   </script>
-
-
-
 </head>
 
 <body>
   <header>
     <h1>The Gallery of Horns</h1>
-    <select>
+    <select id="keyword">
       <option value="home">Filter by Keyword</option>
       <option value="addax">Addax</option>
       <option value="chameleon">Chameleon</option>
@@ -41,22 +36,22 @@
       <option value="unicorn">Unicorn</option>
       <option value="unilego">Unilego</option>
     </select>
+    <select id="sort">
+      <option value="">Sorting Options</option>
+      <option value="alphabetical">Alphabetically</option>
+      <option value="horns">Horns</option>
+    </select>
+    <button id="all">All</button>
     <button id="page1">Page 1</button>
     <button id="page2">Page 2</button>
   </header>
   <main>
     <div id="container">
-      <!-- Default Clone Image -->
-      <section id="section-template">
-        <h2></h2>
-        <img class="image-template" src="" alt="" title="">
-        <p></p>
-      </section>
+      <!-- Appending images here! -->
     </div>
-<!-- <section></section> -->
   </main>
   <footer>
-    &copy; 2020 Jacque and Jenner 
+    &copy; 2020 Jacque and Jenner
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.1.0/mustache.min.js"></script>
@@ -66,3 +61,10 @@
 </body>
 
 </html>
+
+<!-- Default Clone Image -->
+<!-- <section id="section-template">
+  <h2></h2>
+  <img class="image-template" src="" alt="" title="">
+  <p></p>
+</section> -->

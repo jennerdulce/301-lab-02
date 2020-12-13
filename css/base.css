@@ -43,3 +43,15 @@ img {
   display: hidden;
   visibility: hidden;
 }
+
+button {
+  padding: 5px 10px;
+  margin: auto;
+  font-size: 24px;
+  display: inline-block;
+}
+
+input, label{
+  display: block;
+  font-size: 30px;
+}

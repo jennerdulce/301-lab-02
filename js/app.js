@@ -2,6 +2,7 @@
 
 let listOfPictures1 = [];
 let listOfPictures2 = [];
+let currentPage = 0;
 
 function Pictures(url, title, description, keyword, horns, pictureSet) {
   this.url = url;
@@ -21,7 +22,6 @@ $.ajax('./data/page-1.json')
       new Pictures(value.image_url, value.title, value.description, value.keyword, value.horns, listOfPictures1);
     });
     renderImages(listOfPictures1, 'page1');
-
   });
 
 $.ajax('./data/page-2.json')
@@ -30,16 +30,10 @@ $.ajax('./data/page-2.json')
       new Pictures(value.image_url, value.title, value.description, value.keyword, value.horns, listOfPictures2);
     });
     renderImages(listOfPictures2, 'page2');
-
   });
 
 
 //DONE: Use jQuery to make a copy of the HTML template of the photo component. For each object, fill in the duplicated template with its properties, then append the copy to the DOM.
-
-// Targets stores a reference
-// let $container = $('#container');
-// let $sectionTemplate = $('#section-template');
-// let $imgTemplate = $('.image-template');
 
 // How images are made and put on the DOM
 function renderImages(arr, page) {
@@ -47,14 +41,12 @@ function renderImages(arr, page) {
 
     let $imageTemplate = $('#image-template').html();
     let $rendered = Mustache.render($imageTemplate, { class: `${value.keyword} horns${value.horns} ${page}`, title: value.title, image: value.url, description: value.description });
-    $('container').append($rendered);
-
+    $('#container').append($rendered);
   });
-  $sectionTemplate.hide(); // hides template
 }
 
 // Hide/show when clicking on a category
-$('select').on('change', function () {
+$('#keyword').on('change', function () {
   let $category = $(this).val();
 
   if ($category === 'home') {
@@ -73,44 +65,68 @@ $('button').on('click', function () {
   let $page = $(this).attr('id');
 
   if ($page === 'page1') {
+    currentPage = 1;
     $('section').hide();
     $('.page1').show();
 
   } else if ($page === 'page2') {
+    currentPage = 2;
     $('section').hide();
     $('.page2').show();
-  }
 
+  } else {
+    currentPage = 0;
+    $('section').show();
+  }
 });
 
+// CURRENT PAGE IS 1
+$('#sort').on('change', function() {
+  let value = $(this).val();
+  $('#container').empty(); // dump everything, re render
+
+  if (value === 'alphabetical') {
+    // target current page (class) and sort alphabetically
+    renderImages(sortByTitle(listOfPictures1), 'page1');
+    renderImages(sortByTitle(listOfPictures2), 'page2');
 
 
-    // // let $header = $('<h2></h2>');
-    // // let $paragraph = $('<p></p>');
+  } else if (value === 'horns') {
+    // target current page (class) and sort by 1 horn
+    renderImages(sortByHorns(listOfPictures1), 'page1');
+    renderImages(sortByHorns(listOfPictures2), 'page2');
+  }
 
-    // // Create a New Image
-    // let $newSection = $sectionTemplate.clone();
-    // let $newImg = $newSection.find('img');
-    // let $header = $newSection.find('h2');
-    // let $paragraph = $newSection.find('p');
+  if (currentPage === 1) {
+    $('.page2').hide();
+  } else if (currentPage === 2) {
+    $('.page1').hide();
+  } else if (currentPage === 0) {
+    $('.page2').show();
+    $('.page1').show();
+  }
+});
 
-    // // Removes Class
-    // $newImg.removeAttr('class');
-    // $newSection.removeAttr('id');
+// Sort currently displayed page alphabetically
 
-    // // Setting Data
-    // $newSection.addClass(`${value.keyword} horns${value.horns} ${page}`);
-    // $newImg.attr('src', value.url);
-    // $newImg.attr('title', value.title);
-    // $newImg.attr('alt', value.description);
+// Sort currently displayed page by horns1
 
-    // // Add to the HTML/DOM
-    // $header.text(value.title);
-    // $paragraph.text(value.description);
+const sortByTitle = arr => {
+  arr.sort((a, b) => {
+    if (a.title > b.title) {
+      return 1; // move to the left
+    } else if (a.title < b.title){
+      return -1; // move to the right
+    } else {
+      return 0; // do nothing
+    }
+  });
+  return arr;
+};
 
-    // // Append to the Container
-    // $newSection.append($header);
-    // $newSection.append($newImg);
-    // $newSection.append($paragraph);
+const sortByHorns = arr => {
+  return arr.sort((a,b) => a.horns > b.horns ? 1:-1); //true:false
+};
+// terneries if statement
 
-    // $container.append($newSection);
+// very beginning all images are rendered both 1 and 2
