@@ -13,6 +13,26 @@ function Pictures(url, title, description, keyword, horns, pictureSet) {
   pictureSet.push(this);
 }
 
+// Sorts Alphabetically
+const sortByTitle = arr => {
+  arr.sort((a, b) => {
+    if (a.title > b.title) {
+      return 1; // move to the left
+    } else if (a.title < b.title){
+      return -1; // move to the right
+    } else {
+      return 0; // do nothing
+    }
+  });
+  return arr;
+};
+
+// Sorts By Horns Property
+const sortByHorns = arr => {
+  // JS Automatically knows which letter comes before the other.
+  return arr.sort((a,b) => a.horns > b.horns ? 1:-1); //true:false
+};
+
 //DONE: Use AJAX, specifically $.ajax(), to read the provided JSON file.
 //DONE: Each object should become a new instance of a constructor function. Refer to the data to determine the necessary properties.
 
@@ -39,6 +59,7 @@ $.ajax('./data/page-2.json')
 function renderImages(arr, page) {
   arr.forEach(function (value) {
 
+    // MUSTACHE -----
     let $imageTemplate = $('#image-template').html();
     let $rendered = Mustache.render($imageTemplate, { class: `${value.keyword} horns${value.horns} ${page}`, title: value.title, image: value.url, description: value.description });
     $('#container').append($rendered);
@@ -61,16 +82,27 @@ $('#keyword').on('change', function () {
   }
 });
 
+// When clicking pages
+// Event handler
 $('button').on('click', function () {
+  // Each button has a different ID value; Set this value to $page
   let $page = $(this).attr('id');
 
+  // if the ID = 'page1'
   if ($page === 'page1') {
+    // Useful when we SORT alphabetically or by horns
     currentPage = 1;
+    console.log('Current page is now, ' + currentPage);
+    // Hides everything and only shows elements with the class of .page1
     $('section').hide();
     $('.page1').show();
 
+    // if the ID = 'page2'
   } else if ($page === 'page2') {
+    // Useful when we SORT alphabetically or by horns
     currentPage = 2;
+    console.log('Current page is now, ' + currentPage);
+    // Hides everything and only shows elements with the class of .page2
     $('section').hide();
     $('.page2').show();
 
@@ -81,18 +113,19 @@ $('button').on('click', function () {
 });
 
 // CURRENT PAGE IS 1
+// Event handler
 $('#sort').on('change', function() {
   let value = $(this).val();
-  $('#container').empty(); // dump everything, re render
+  $('#container').empty(); // dump everything
 
   if (value === 'alphabetical') {
-    // target current page (class) and sort alphabetically
+    // Rerender
     renderImages(sortByTitle(listOfPictures1), 'page1');
     renderImages(sortByTitle(listOfPictures2), 'page2');
 
 
   } else if (value === 'horns') {
-    // target current page (class) and sort by 1 horn
+    // Rerender
     renderImages(sortByHorns(listOfPictures1), 'page1');
     renderImages(sortByHorns(listOfPictures2), 'page2');
   }
@@ -107,26 +140,6 @@ $('#sort').on('change', function() {
   }
 });
 
-// Sort currently displayed page alphabetically
-
-// Sort currently displayed page by horns1
-
-const sortByTitle = arr => {
-  arr.sort((a, b) => {
-    if (a.title > b.title) {
-      return 1; // move to the left
-    } else if (a.title < b.title){
-      return -1; // move to the right
-    } else {
-      return 0; // do nothing
-    }
-  });
-  return arr;
-};
-
-const sortByHorns = arr => {
-  return arr.sort((a,b) => a.horns > b.horns ? 1:-1); //true:false
-};
 // terneries if statement
 
 // very beginning all images are rendered both 1 and 2
