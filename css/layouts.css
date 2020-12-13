@@ -33,11 +33,6 @@ footer {
   clear: both
 }
 
-#container, h1 {
-  width: 90%;
-  margin: 100px auto;
-}
-
 img {
   width: 300px;
   margin-bottom: 30px;
@@ -45,10 +40,18 @@ img {
   border-radius: 20px;
 }
 
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 100px auto;
+  /* justify-content: center; */
+  justify-content: space-around;
+}
+
 section {
   /* display: inline-block; */
   overflow: auto;
-  float: left;
   width: 300px;
   height: 500px;
   margin: 10px;
@@ -57,4 +60,9 @@ section {
   border: 5px black solid;
   border-radius: 30px;
   background-color: white;
+  /* margin-bottom: 50px */
+}
+
+fieldset {
+  margin: 100px auto 40px auto;
 }
