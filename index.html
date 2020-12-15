@@ -19,33 +19,41 @@
       <p>{{ description }}</p>
     </section>
   </script>
+  <script id="keyword-template" type="x-tmpl-mustache">
+    <option value="{{ keywordValue }}">{{ text }}</option>
+  </script>
 </head>
 
 <body>
   <header>
     <h1>The Gallery of Horns</h1>
-    <select id="keyword">
-      <option value="home">Filter by Keyword</option>
-      <option value="addax">Addax</option>
-      <option value="chameleon">Chameleon</option>
-      <option value="dragon">Dragon</option>
-      <option value="lizard">Lizard</option>
-      <option value="markhor">Markhor</option>
-      <option value="mouflon">Mouflon</option>
-      <option value="narwhal">Narwhal</option>
-      <option value="rhino">Rhino</option>
-      <option value="triceratops">Triceratops</option>
-      <option value="unicorn">Unicorn</option>
-      <option value="unilego">Unilego</option>
-    </select>
-    <select id="sort">
-      <option value="">Sorting Options</option>
-      <option value="alphabetical">Alphabetically</option>
-      <option value="horns">Horns</option>
-    </select>
-    <button id="all">All</button>
-    <button id="page1">Page 1</button>
-    <button id="page2">Page 2</button>
+    <div id="buttons">
+      <button id="all">All</button>
+      <button id="page1">Page 1</button>
+      <button id="page2">Page 2</button>
+    </div>
+    <div id="dropdowns">
+      <select id="keyword">
+        <option value="home">Filter by Keyword</option>
+        <!-- <option value="addax">Addax</option>
+        <option value="chameleon">Chameleon</option>
+        <option value="dragon">Dragon</option>
+        <option value="lizard">Lizard</option>
+        <option value="markhor">Markhor</option>
+        <option value="mouflon">Mouflon</option>
+        <option value="narwhal">Narwhal</option>
+        <option value="rhino">Rhino</option>
+        <option value="triceratops">Triceratops</option>
+        <option value="unicorn">Unicorn</option>
+        <option value="unilego">Unilego</option> -->
+      </select>
+      <select id="sort">
+        <option value="original">Sorting Options</option>
+        <option value="alphabetical">Alphabetically</option>
+        <option value="horns">Horns</option>
+      </select>
+    </div>
+
   </header>
   <main>
     <div id="container">

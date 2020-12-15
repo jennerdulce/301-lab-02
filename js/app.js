@@ -2,6 +2,7 @@
 
 let listOfPictures1 = [];
 let listOfPictures2 = [];
+let keywords = [];
 let currentPage = 0;
 
 function Pictures(url, title, description, keyword, horns, pictureSet) {
@@ -11,14 +12,17 @@ function Pictures(url, title, description, keyword, horns, pictureSet) {
   this.keyword = keyword;
   this.horns = horns;
   pictureSet.push(this);
+  if (!keywords.includes(keyword)) {
+    keywords.push(keyword);
+  }
 }
 
 // Sorts Alphabetically
 const sortByTitle = arr => {
   arr.sort((a, b) => {
-    if (a.title > b.title) {
+    if (a.title.toLowerCase() > b.title.toLowerCase()) {
       return 1; // move to the left
-    } else if (a.title < b.title){
+    } else if (a.title.toLowerCase() < b.title.toLowerCase()) {
       return -1; // move to the right
     } else {
       return 0; // do nothing
@@ -30,8 +34,9 @@ const sortByTitle = arr => {
 // Sorts By Horns Property
 const sortByHorns = arr => {
   // JS Automatically knows which letter comes before the other.
-  return arr.sort((a,b) => a.horns > b.horns ? 1:-1); //true:false
+  return arr.sort((a, b) => a.horns > b.horns ? 1 : -1); //true:false
 };
+
 
 //DONE: Use AJAX, specifically $.ajax(), to read the provided JSON file.
 //DONE: Each object should become a new instance of a constructor function. Refer to the data to determine the necessary properties.
@@ -42,6 +47,7 @@ $.ajax('./data/page-1.json')
       new Pictures(value.image_url, value.title, value.description, value.keyword, value.horns, listOfPictures1);
     });
     renderImages(listOfPictures1, 'page1');
+
   });
 
 $.ajax('./data/page-2.json')
@@ -50,8 +56,8 @@ $.ajax('./data/page-2.json')
       new Pictures(value.image_url, value.title, value.description, value.keyword, value.horns, listOfPictures2);
     });
     renderImages(listOfPictures2, 'page2');
+    renderKeywords();
   });
-
 
 //DONE: Use jQuery to make a copy of the HTML template of the photo component. For each object, fill in the duplicated template with its properties, then append the copy to the DOM.
 
@@ -61,9 +67,37 @@ function renderImages(arr, page) {
 
     // MUSTACHE -----
     let $imageTemplate = $('#image-template').html();
-    let $rendered = Mustache.render($imageTemplate, { class: `${value.keyword} horns${value.horns} ${page}`, title: value.title, image: value.url, description: value.description });
+    let $rendered = Mustache.render($imageTemplate, {
+      class: `${value.keyword} horns${value.horns} ${page}`,
+      title: value.title,
+      image: value.url,
+      description: value.description
+    });
     $('#container').append($rendered);
   });
+}
+
+function renderKeywords() {
+  keywords.forEach(value => {
+
+    let $keywordTemplate = $('#keyword-template').html();
+    let $rendered = Mustache.render($keywordTemplate, {
+      keywordValue: value,
+      text: value
+    });
+    $('#keyword').append($rendered);
+  });
+}
+
+function checkCurrentPage() {
+  if (currentPage === 1) {
+    $('.page2').hide();
+  } else if (currentPage === 2) {
+    $('.page1').hide();
+  } else if (currentPage === 0) {
+    $('.page2').show();
+    $('.page1').show();
+  }
 }
 
 // Hide/show when clicking on a category
@@ -80,10 +114,15 @@ $('#keyword').on('change', function () {
     // Shows images with the class chosen
     $(`.${$category}`).show();
   }
+
+  if (currentPage === 1) {
+    $('.page2').hide();
+  } else if (currentPage === 2) {
+    $('.page1').hide();
+  }
 });
 
 // When clicking pages
-// Event handler
 $('button').on('click', function () {
   // Each button has a different ID value; Set this value to $page
   let $page = $(this).attr('id');
@@ -114,7 +153,7 @@ $('button').on('click', function () {
 
 // CURRENT PAGE IS 1
 // Event handler
-$('#sort').on('change', function() {
+$('#sort').on('change', function () {
   let value = $(this).val();
   $('#container').empty(); // dump everything
 
@@ -123,21 +162,16 @@ $('#sort').on('change', function() {
     renderImages(sortByTitle(listOfPictures1), 'page1');
     renderImages(sortByTitle(listOfPictures2), 'page2');
 
-
   } else if (value === 'horns') {
     // Rerender
     renderImages(sortByHorns(listOfPictures1), 'page1');
     renderImages(sortByHorns(listOfPictures2), 'page2');
-  }
 
-  if (currentPage === 1) {
-    $('.page2').hide();
-  } else if (currentPage === 2) {
-    $('.page1').hide();
-  } else if (currentPage === 0) {
-    $('.page2').show();
-    $('.page1').show();
+  } else {
+    renderImages(listOfPictures1, 'page1');
+    renderImages(listOfPictures2, 'page2');
   }
+  checkCurrentPage();
 });
 
 // terneries if statement
